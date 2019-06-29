@@ -310,15 +310,7 @@ kable(ldaFit3$finalModel$scaling, , caption = "Our rodent-only coefficients")
 Let's try it again without any pre-processing of the data, still our coefficients are not similar to those published by Hernández Fernández (2003)
 
 ```{r}
-
 # now run DFA using Linear Discriminant analysis (LDA) on the normalized data 
-
-# Basic Parameter Tuning
-fitControl <- trainControl(## 10-fold CV
-  method = "repeatedcv",
-  number = 10,
-  ## repeated ten times
-  repeats = 10)
 
 # fit the model to the training data
 ldaFit4 <- train(Cl. ~ ., 

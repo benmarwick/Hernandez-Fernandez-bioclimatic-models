@@ -14256,13 +14256,6 @@ coefficients are not similar to those published by Hernández Fernández
 ``` r
 # now run DFA using Linear Discriminant analysis (LDA) on the normalized data 
 
-# Basic Parameter Tuning
-fitControl <- trainControl(## 10-fold CV
-  method = "repeatedcv",
-  number = 10,
-  ## repeated ten times
-  repeats = 10)
-
 # fit the model to the training data
 ldaFit4 <- train(Cl. ~ ., 
                  trControl = fitControl,
