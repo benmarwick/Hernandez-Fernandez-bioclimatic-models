@@ -11,6 +11,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
                       warning = FALSE,
+                      cache = TRUE,
                       fig.path = "README_figs/README-")
 ```
 
@@ -25,6 +26,7 @@ In his 2001 paper we see table 2 which has data for whole mammal faunal bioclima
 ```{r fh-2001-data}
 library(docxtractr)
 library(tidyverse)
+library(kableExtra)
 # get the BCi and Cl. values from https://onlinelibrary.wiley.com/doi/full/10.1046/j.1466-822x.2001.00218.x
 # Table 2 Whole mammal faunal bioclimatic spectra of the localities. Each column 
 # represents a bioclimatic component (see Table 1), and BCi values 
@@ -48,7 +50,7 @@ fh_2001_BCi_values_and_Cl <-
                    N))
 
 library(knitr)
-kable(fh_2001_BCi_values_and_Cl, caption = "Whole mammal faunal bioclimatic spectra from 50 locations")
+kable_styling(kable(fh_2001_BCi_values_and_Cl, caption = "Whole mammal faunal bioclimatic spectra from 50 locations"))
 ```
 
 Using these data, we can roughly follow Hernández Fernández's method to compute a Linear Discriminant Analysis to generate a model to predict the climate zone of a new faunal assemblage:
