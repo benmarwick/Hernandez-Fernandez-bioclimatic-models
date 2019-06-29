@@ -1,5 +1,5 @@
 ---
-title: "Partial reproduction of the LDA models and predictions from Hernández Fernández 2001 & 2003"
+title: "Partial reproduction of the LDA models and predictions for mammal bioclimatic models from Hernández Fernández 2001 & 2003"
 author: "Ben Marwick and Gillian Wong"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
@@ -17,6 +17,10 @@ knitr::opts_chunk$set(echo = TRUE,
 
 
 ### Hernández Fernández (2001) and the whole mammal bioclimatic model {-#whole}
+
+<!-- badges: start -->
+[![Launch Rstudio binder](http://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/benmarwick/Hernandez-Fernandez-bioclimatic-models/master?urlpath=rstudio)
+<!-- badges: end -->
 
 Hernández Fernández (2001, 2003) proposed a bioclimatic model for palaeoclimatic reconstruction based on the assumption of a correlation between climate and mammal community composition. 
 

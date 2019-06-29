@@ -1,10 +1,16 @@
-Partial reproduction of the LDA models and predictions from Hernández
-Fernández 2001 & 2003
+Partial reproduction of the LDA models and predictions for mammal
+bioclimatic models from Hernández Fernández 2001 & 2003
 ================
 Ben Marwick and Gillian Wong
 29 June, 2019
 
 ### Hernández Fernández (2001) and the whole mammal bioclimatic model
+
+<!-- badges: start -->
+
+[![Launch Rstudio
+binder](http://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/benmarwick/Hernandez-Fernandez-bioclimatic-models/master?urlpath=rstudio)
+<!-- badges: end -->
 
 Hernández Fernández (2001, 2003) proposed a bioclimatic model for
 palaeoclimatic reconstruction based on the assumption of a correlation

@@ -1,0 +1,23 @@
+Package: HernandezFernandezbioclimaticmodels
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Ben",
+           family = "Marwick",
+           role = c("aut", "cre"),
+           email = "benmarwick@gmail.com",
+           comment = c(ORCID = "0000-0001-7879-4531"))
+Description: What the package does (one paragraph).
+License: What license it uses
+Encoding: UTF-8
+LazyData: true
+Imports:,
+    caret (>= 6.0-84),
+    docxtractr (>= 0.6.1),
+    dplyr (>= 0.8.1),
+    here (>= 0.1),
+    kableExtra (>= 1.1.0),
+    knitr (>= 1.23),
+    MASS (>= 7.3-51.4),
+    sessioninfo (>= 1.1.1),
+    tidyverse (>= 1.2.1)
