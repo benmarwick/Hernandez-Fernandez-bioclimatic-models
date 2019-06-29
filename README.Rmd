@@ -6,6 +6,10 @@ output:
  github_document
 ---
 
+<!-- badges: start -->
+[![Launch Rstudio binder](http://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/benmarwick/Hernandez-Fernandez-bioclimatic-models/master?urlpath=rstudio)
+<!-- badges: end -->
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
@@ -17,10 +21,6 @@ knitr::opts_chunk$set(echo = TRUE,
 
 
 ### Hernández Fernández (2001) and the whole mammal bioclimatic model {-#whole}
-
-<!-- badges: start -->
-[![Launch Rstudio binder](http://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/benmarwick/Hernandez-Fernandez-bioclimatic-models/master?urlpath=rstudio)
-<!-- badges: end -->
 
 Hernández Fernández (2001, 2003) proposed a bioclimatic model for palaeoclimatic reconstruction based on the assumption of a correlation between climate and mammal community composition. 
 
