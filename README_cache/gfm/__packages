@@ -1,0 +1,15 @@
+base
+docxtractr
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+kableExtra
+knitr
+lattice
+caret

@@ -3,8 +3,7 @@ title: "Partial reproduction of the LDA models and predictions from Hernández F
 author: "Ben Marwick and Gillian Wong"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
- bookdown::html_document2:
-   keep_md: true
+ github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -50,7 +49,7 @@ fh_2001_BCi_values_and_Cl <-
                    N))
 
 library(knitr)
-kable_styling(kable(fh_2001_BCi_values_and_Cl, caption = "Whole mammal faunal bioclimatic spectra from 50 locations"))
+(kable(fh_2001_BCi_values_and_Cl, caption = "Whole mammal faunal bioclimatic spectra from 50 locations"))
 ```
 
 Using these data, we can roughly follow Hernández Fernández's method to compute a Linear Discriminant Analysis to generate a model to predict the climate zone of a new faunal assemblage:
