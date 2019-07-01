@@ -1,5 +1,5 @@
 ---
-title: "Partial reproduction of the LDA models and predictions for mammal bioclimatic models from Hernández Fernández 2001 & 2003"
+title: "Partial reproduction of the LDA models and predictions for mammal bioclimatic models from Hernández Fernández 2001a,b and Hernández Fernández & Peláez-Campomanes 2003"
 author: "Ben Marwick and Gillian Wong"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
@@ -20,11 +20,11 @@ knitr::opts_chunk$set(echo = TRUE,
 
 
 
-### Hernández Fernández (2001) and the whole mammal bioclimatic model {-#whole}
+### Hernández Fernández (2001a) and the whole mammal bioclimatic model {-#whole}
 
-Hernández Fernández (2001, 2003) proposed a bioclimatic model for palaeoclimatic reconstruction based on the assumption of a correlation between climate and mammal community composition. 
+Hernández Fernández (2001a) & Hernández Fernández & Peláez-Campomanes (2003) proposed a bioclimatic model for palaeoclimatic reconstruction based on the assumption of a correlation between climate and mammal community composition. 
 
-In his 2001 paper we see table 2 which has data for whole mammal faunal bioclimatic spectra of the localities. Each column represents a bioclimatic component, and BCi values. From Appendix 1 of the 2001 paper we can get the actual climatic zones for the localities in table 2. Using these two tables we can make a labelled training set to train a machine learning model that can predict the climate zone of new faunal assemblages. 
+In the 2001a paper we see table 2 which has data for whole mammal faunal bioclimatic spectra of the localities. Each column represents a bioclimatic component, and BCi values. From Appendix 1 of the 2001a paper we can get the actual climatic zones for the localities in table 2. Using these two tables we can make a labelled training set to train a machine learning model that can predict the climate zone of new faunal assemblages. 
 
 ```{r fh-2001-data}
 library(docxtractr)
@@ -123,11 +123,11 @@ pred.accuracy = round(mean(test_predictions1 == testTransformed1$Cl.) * 100, 2)
 
 And we find a prediction accuracy of `r pred.accuracy` % in this case, not bad. 
 
-In Appendix 3, Hernández Fernández (2001) shows the results of his LDA model applied to the locations in his training data set. He appears to have tested his model on the same data set that he used to train it, which is not ideal. Perhaps not suprisingly, there is a very good fit, and he claims a 98% correct classification rate. Only one location was incorrect, the same as we observed with our training data. From these results we can conclude that we have successfully reproduced some key results of Hernández Fernández (2001). 
+In Appendix 3, Hernández Fernández (2001a) shows the results of his LDA model applied to the locations in his training data set. He appears to have tested his model on the same data set that he used to train it, which is not ideal (although this is never clarified explicitly in the paper). Perhaps not suprisingly, there is a very good fit, and he claims a 98% correct classification rate. Only one location was incorrect, the same as we observed with our training data. From these results we can conclude that we have successfully reproduced some key results of Hernández Fernández (2001a). 
 
-### Hernández Fernández (2003) and whole fauna biospectra at 13 new locations {-#new}
+### Hernández Fernández & Peláez-Campomanes (2003) and whole fauna biospectra at 13 new locations {-#new}
 
-In his 2003 paper, Hernández Fernández attempts to infer past climatic conditions using mammal fossil associations as source data. In this 2003 paper we also have 13 new recent faunas presented for testing. So let's attempt to reproduce Hernández Fernández's results with these 13 new fauna samples. We will train a LDA model on all 50 locations from the 2001 paper. Then we will use this model to classify the climate zones of these 13 new locations in the 2003 paper. Then we'll check to see how accurate the model was with these 13 new locations. This is a direct reproduction of the key results in the 2003 paper. 
+In their 2003 paper, Hernández Fernández & Peláez-Campomanes attempt to infer past climatic conditions using mammal fossil associations as source data. In this 2003 paper we also have 13 new recent faunas presented for testing. So let's attempt to reproduce Hernández Fernández's results with these 13 new fauna samples. We will train a LDA model on all 50 locations from the 2001 paper. Then we will use this model to classify the climate zones of these 13 new locations in the 2003 paper. Then we'll check to see how accurate the model was with these 13 new locations. This is a direct reproduction of the key results in the 2003 paper. 
 
 Here are the 13 new locations from appendix 3.1 in the 2003 paper that we will use as the test dataset, just as Hernández Fernández does:
 
@@ -186,7 +186,7 @@ fh_2003_tbl_2_no_na <- filter(fh_2003_tbl_2, !is.na(`Climate zone`))
 kable(fh_2003_tbl_2_no_na, caption = "Actual climate zones of the 13 new locations")
 ```
 
-Now we can inspect the model on the testing data set of the 13 new locations from the 2003 paper. Below we can see a pretty accurate classification from our model's predictions and the actual climate zone reported in Hernández Fernández (2003) table 2:
+Now we can inspect the model on the testing data set of the 13 new locations from the 2003 paper. Below we can see a pretty accurate classification from our model's predictions and the actual climate zone reported in Hernández Fernández & Peláez-Campomanes (2003) table 2:
 
 ```{r fh-model2-compare}
 # use this model to predict the classifications of the test data on the 13 new locations
@@ -207,7 +207,7 @@ kable(tibble(Location = hf_2003_appdx_3.1$Whole.mammal,
 
 ```
 
-### Hernández Fernández (2003) and Rodentia data {-#rodent}
+### Hernández Fernández & Peláez-Campomanes (2003) and Rodentia data {-#rodent}
 
 Let's take a look at how effective this model is with the Rodent data. In his 2003 paper we see 'Appendix 1.2 Rodentia faunal bioclimatic spectra of the localities' which appears to be model training data for predicting climate zones from rodent data only. The rodent data of 13 new locations are given in 'Appendix 3.2 Rodentia faunal bioclimatic spectra of the 13 new localities used for the validation of the bioclimatic model.' So let's see if we can reproduce the rodent analysis. We'll generate a new LDA model using the rodent data from 50 locations as the training set, then predict the locations of the 13 new faunas using only their rodent data. 
 
@@ -297,9 +297,9 @@ kable(tibble(Location = hf_2003_appdx_3.2$Rodentia,
 
 ```
 
-The coefficients of Hernández Fernández (2003) rodent-only model are presented in 'Appendix 2.2 Coefficients for discriminant functions calculated from rodent faunal bioclimatic components and centroids, for each discriminant function, for every locality's biome group.' We can also show the coefficients from our rodent model. 
+The coefficients of Hernández Fernández & Peláez-Campomanes (2003) rodent-only model are presented in 'Appendix 2.2 Coefficients for discriminant functions calculated from rodent faunal bioclimatic components and centroids, for each discriminant function, for every locality's biome group.' We can also show the coefficients from our rodent model. 
 
-Here are Hernández Fernández (2003) rodent LDA coefficients:
+Here are Hernández Fernández & Peláez-Campomanes (2003) rodent LDA coefficients:
 
 ```{r fh-coef}
 kable(hf_2003_appdx_2.2, caption = "Hernández Fernández (2003) rodent-only coefficients")
@@ -311,7 +311,7 @@ And here are our rodent LDA coefficients, they are very different, and it's not 
 kable(ldaFit3$finalModel$scaling, , caption = "Our rodent-only coefficients")
 ```
 
-Let's try it again without any pre-processing of the data, still our coefficients are not similar to those published by Hernández Fernández (2003)
+Let's try it again without any pre-processing of the data, still our coefficients are not similar to those published by Hernández Fernández & Peláez-Campomanes (2003)
 
 ```{r}
 # now run DFA using Linear Discriminant analysis (LDA) on the normalized data 
@@ -335,7 +335,9 @@ kable(ldaFit4$finalModel$scaling, , caption = "Our rodent-only coefficients, no 
 
 #### References {-#refs}
 
-Fernández, M. H. (2001). Bioclimatic discriminant capacity of terrestrial mammal faunas. Global Ecology and Biogeography, 10(2), 189-204. <https://doi.org/10.1046/j.1466-822x.2001.00218.x>
+Fernández, M. H. (2001a). Bioclimatic discriminant capacity of terrestrial mammal faunas. Global Ecology and Biogeography, 10(2), 189-204. <https://doi.org/10.1046/j.1466-822x.2001.00218.x>
+
+Hernández Fernández, M., (2001b). Análisis paleoecológico y paleoclimático de las sucesiones de mamíferos del Plio-Pleistoceno Ibérico. PhD Dissertation, Universidad Complutense de Madrid.
 
 Fernández, M. H., & Peláez‐Campomanes, P. (2003). The bioclimatic model: a method of palaeoclimatic qualitative inference based on mammal associations. _Global Ecology and Biogeography_, 12(6), 507-517. <https://doi.org/10.1046/j.1466-822X.2003.00057.x>
 
