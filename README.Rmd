@@ -114,6 +114,11 @@ And we can inspect the model on the testing data set, and we see less accuracy:
 test_predictions1 <- 
   predict(ldaFit1, 
           newdata = testTransformed1)
+
+# get posterior probabilities 
+test_predictions1_postprobs <- 
+ predict(ldaFit1, testTransformed1, type = "prob")
+
 # model against the testing set 
 kable(table(test_predictions1, testTransformed1$Cl.),
       caption = "Model performance with hold-out test data")
@@ -198,6 +203,10 @@ testTransformed2 <-
 test_predictions_ldaFit2 <- 
   predict(ldaFit2, 
           newdata = testTransformed2)
+
+# get posterior probabilities 
+test_predictions_ldaFit2_postprobs <- 
+ predict(ldaFit2, testTransformed2, type = "prob")
 
 # model against the testing set 
 kable(tibble(Location = hf_2003_appdx_3.1$Whole.mammal, 
@@ -289,6 +298,10 @@ test_predictions_ldaFit3 <-
   predict(ldaFit3, 
           newdata = testTransformed3)
 
+# get posterior probabilities 
+test_predictions_ldaFit3_postprobs <- 
+ predict(ldaFit3, testTransformed3, type = "prob")
+
 # model against the testing set 
 kable(tibble(Location = hf_2003_appdx_3.2$Rodentia, 
        `Predicted by our model`= test_predictions_ldaFit3,
@@ -327,6 +340,10 @@ ldaFit4 <- train(Cl. ~ .,
 test_predictions_ldaFit4 <- 
   predict(ldaFit4, 
           newdata = testing3)
+
+# get posterior probabilities 
+test_predictions_ldaFit4_postprobs <- 
+ predict(ldaFit4, testing3, type = "prob")
 
 kable(ldaFit4$finalModel$scaling, , caption = "Our rodent-only coefficients, no transformation to model inputs")
 ```

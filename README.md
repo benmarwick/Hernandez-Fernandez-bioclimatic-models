@@ -1,8 +1,9 @@
 Partial reproduction of the LDA models and predictions for mammal
-bioclimatic models from Hernández Fernández 2001 & 2003
+bioclimatic models from Hernández Fernández 2001a,b and Hernández
+Fernández & Peláez-Campomanes 2003
 ================
 Ben Marwick and Gillian Wong
-29 June, 2019
+05 July, 2019
 
 <!-- badges: start -->
 
@@ -10,17 +11,18 @@ Ben Marwick and Gillian Wong
 binder](http://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/benmarwick/Hernandez-Fernandez-bioclimatic-models/master?urlpath=rstudio)
 <!-- badges: end -->
 
-### Hernández Fernández (2001) and the whole mammal bioclimatic model
+### Hernández Fernández (2001a) and the whole mammal bioclimatic model
 
-Hernández Fernández (2001, 2003) proposed a bioclimatic model for
-palaeoclimatic reconstruction based on the assumption of a correlation
-between climate and mammal community composition.
+Hernández Fernández (2001a) & Hernández Fernández & Peláez-Campomanes
+(2003) proposed a bioclimatic model for palaeoclimatic reconstruction
+based on the assumption of a correlation between climate and mammal
+community composition.
 
-In his 2001 paper we see table 2 which has data for whole mammal faunal
+In the 2001a paper we see table 2 which has data for whole mammal faunal
 bioclimatic spectra of the localities. Each column represents a
-bioclimatic component, and BCi values. From Appendix 1 of the 2001 paper
-we can get the actual climatic zones for the localities in table 2.
-Using these two tables we can make a labelled training set to train a
+bioclimatic component, and BCi values. From Appendix 1 of the 2001a
+paper we can get the actual climatic zones for the localities in table
+2. Using these two tables we can make a labelled training set to train a
 machine learning model that can predict the climate zone of new faunal
 assemblages.
 
@@ -4796,6 +4798,11 @@ accuracy:
 test_predictions1 <- 
   predict(ldaFit1, 
           newdata = testTransformed1)
+
+# get posterior probabilities 
+test_predictions1_postprobs <- 
+ predict(ldaFit1, testTransformed1, type = "prob")
+
 # model against the testing set 
 kable(table(test_predictions1, testTransformed1$Cl.),
       caption = "Model performance with hold-out test data")
@@ -5594,27 +5601,29 @@ pred.accuracy = round(mean(test_predictions1 == testTransformed1$Cl.) * 100, 2)
 
 And we find a prediction accuracy of 80 % in this case, not bad.
 
-In Appendix 3, Hernández Fernández (2001) shows the results of his LDA
+In Appendix 3, Hernández Fernández (2001a) shows the results of his LDA
 model applied to the locations in his training data set. He appears to
 have tested his model on the same data set that he used to train it,
-which is not ideal. Perhaps not suprisingly, there is a very good fit,
-and he claims a 98% correct classification rate. Only one location was
-incorrect, the same as we observed with our training data. From these
-results we can conclude that we have successfully reproduced some key
-results of Hernández Fernández
-(2001).
+which is not ideal (although this is never clarified explicitly in the
+paper). Perhaps not suprisingly, there is a very good fit, and he claims
+a 98% correct classification rate. Only one location was incorrect, the
+same as we observed with our training data. From these results we can
+conclude that we have successfully reproduced some key results of
+Hernández Fernández
+(2001a).
 
-### Hernández Fernández (2003) and whole fauna biospectra at 13 new locations
+### Hernández Fernández & Peláez-Campomanes (2003) and whole fauna biospectra at 13 new locations
 
-In his 2003 paper, Hernández Fernández attempts to infer past climatic
-conditions using mammal fossil associations as source data. In this 2003
-paper we also have 13 new recent faunas presented for testing. So let’s
-attempt to reproduce Hernández Fernández’s results with these 13 new
-fauna samples. We will train a LDA model on all 50 locations from the
-2001 paper. Then we will use this model to classify the climate zones of
-these 13 new locations in the 2003 paper. Then we’ll check to see how
-accurate the model was with these 13 new locations. This is a direct
-reproduction of the key results in the 2003 paper.
+In their 2003 paper, Hernández Fernández & Peláez-Campomanes attempt to
+infer past climatic conditions using mammal fossil associations as
+source data. In this 2003 paper we also have 13 new recent faunas
+presented for testing. So let’s attempt to reproduce Hernández
+Fernández’s results with these 13 new fauna samples. We will train a
+LDA model on all 50 locations from the 2001 paper. Then we will use this
+model to classify the climate zones of these 13 new locations in the
+2003 paper. Then we’ll check to see how accurate the model was with
+these 13 new locations. This is a direct reproduction of the key results
+in the 2003 paper.
 
 Here are the 13 new locations from appendix 3.1 in the 2003 paper that
 we will use as the test dataset, just as Hernández Fernández does:
@@ -7426,7 +7435,7 @@ Corbet & Hill (1992)
 Now we can inspect the model on the testing data set of the 13 new
 locations from the 2003 paper. Below we can see a pretty accurate
 classification from our model’s predictions and the actual climate zone
-reported in Hernández Fernández (2003) table
+reported in Hernández Fernández & Peláez-Campomanes (2003) table
 2:
 
 ``` r
@@ -7439,6 +7448,10 @@ testTransformed2 <-
 test_predictions_ldaFit2 <- 
   predict(ldaFit2, 
           newdata = testTransformed2)
+
+# get posterior probabilities 
+test_predictions_ldaFit2_postprobs <- 
+ predict(ldaFit2, testTransformed2, type = "prob")
 
 # model against the testing set 
 kable(tibble(Location = hf_2003_appdx_3.1$Whole.mammal, 
@@ -7773,7 +7786,7 @@ I
 
 </table>
 
-### Hernández Fernández (2003) and Rodentia data
+### Hernández Fernández & Peláez-Campomanes (2003) and Rodentia data
 
 Let’s take a look at how effective this model is with the Rodent data.
 In his 2003 paper we see ‘Appendix 1.2 Rodentia faunal bioclimatic
@@ -12457,6 +12470,10 @@ test_predictions_ldaFit3 <-
   predict(ldaFit3, 
           newdata = testTransformed3)
 
+# get posterior probabilities 
+test_predictions_ldaFit3_postprobs <- 
+ predict(ldaFit3, testTransformed3, type = "prob")
+
 # model against the testing set 
 kable(tibble(Location = hf_2003_appdx_3.2$Rodentia, 
        `Predicted by our model`= test_predictions_ldaFit3,
@@ -12791,13 +12808,14 @@ I
 
 </table>
 
-The coefficients of Hernández Fernández (2003) rodent-only model are
-presented in ‘Appendix 2.2 Coefficients for discriminant functions
-calculated from rodent faunal bioclimatic components and centroids, for
-each discriminant function, for every locality’s biome group.’ We can
-also show the coefficients from our rodent model.
+The coefficients of Hernández Fernández & Peláez-Campomanes (2003)
+rodent-only model are presented in ‘Appendix 2.2 Coefficients for
+discriminant functions calculated from rodent faunal bioclimatic
+components and centroids, for each discriminant function, for every
+locality’s biome group.’ We can also show the coefficients from our
+rodent model.
 
-Here are Hernández Fernández (2003) rodent LDA
+Here are Hernández Fernández & Peláez-Campomanes (2003) rodent LDA
 coefficients:
 
 ``` r
@@ -14256,7 +14274,8 @@ IX
 </table>
 
 Let’s try it again without any pre-processing of the data, still our
-coefficients are not similar to those published by Hernández Fernández
+coefficients are not similar to those published by Hernández Fernández &
+Peláez-Campomanes
 (2003)
 
 ``` r
@@ -14273,6 +14292,10 @@ ldaFit4 <- train(Cl. ~ .,
 test_predictions_ldaFit4 <- 
   predict(ldaFit4, 
           newdata = testing3)
+
+# get posterior probabilities 
+test_predictions_ldaFit4_postprobs <- 
+ predict(ldaFit4, testing3, type = "prob")
 
 kable(ldaFit4$finalModel$scaling, , caption = "Our rodent-only coefficients, no transformation to model inputs")
 ```
@@ -14999,9 +15022,13 @@ IX
 
 #### References
 
-Fernández, M. H. (2001). Bioclimatic discriminant capacity of
+Fernández, M. H. (2001a). Bioclimatic discriminant capacity of
 terrestrial mammal faunas. Global Ecology and Biogeography, 10(2),
 189-204. <https://doi.org/10.1046/j.1466-822x.2001.00218.x>
+
+Hernández Fernández, M., (2001b). Análisis paleoecológico y
+paleoclimático de las sucesiones de mamíferos del Plio-Pleistoceno
+Ibérico. PhD Dissertation, Universidad Complutense de Madrid.
 
 Fernández, M. H., & Peláez‐Campomanes, P. (2003). The bioclimatic model:
 a method of palaeoclimatic qualitative inference based on mammal
